@@ -353,6 +353,7 @@ init_colors()
 	do
 	    str = rainbow[rnd(NCOLORS)];
 	until (isupper(*str));
+    str = strdup(str);
 	*str = tolower(*str);
 	p_colors[i] = str;
 	p_know[i] = FALSE;
@@ -415,6 +416,7 @@ init_stones()
 	do
 	    str = stones[rnd(NSTONES)];
 	until (isupper(*str));
+    str = strdup(str);
 	*str = tolower(*str);
 	r_stones[i] = str;
 	r_know[i] = FALSE;
@@ -451,6 +453,7 @@ init_materials()
 			ws_type[i] = "staff";
 	    }
 	until (isupper(*str));
+    str = strdup(str);
 	*str = tolower(*str);
 	ws_made[i] = str;
 	ws_know[i] = FALSE;
@@ -518,8 +521,8 @@ struct h_list helpstr[] = {
     'd',	"	drop object",
     'c',	"	call object",
     'o',	"	examine/set options",
-    CTRL(L),	"	redraw screen",
-    CTRL(R),	"	repeat last message",
+    CTRL('L'),	"	redraw screen",
+    CTRL('R'),	"	repeat last message",
     ESCAPE,	"	cancel command",
     'v',	"	print program version number",
     '!',	"	shell escape",

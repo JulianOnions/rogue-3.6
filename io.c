@@ -7,7 +7,7 @@
 #include "curses.h"
 #include <ctype.h>
 #include "rogue.h"
-
+#include <stdarg.h>
 /*
  * msg:
  *	Display a message at the top of the screen.
@@ -17,10 +17,9 @@ static char msgbuf[BUFSIZ];
 static int newpos = 0;
 
 /*VARARGS1*/
-msg(fmt, args)
-char *fmt;
-int args;
+msg(char *fmt, ...)
 {
+    va_list ap;
     /*
      * if the string is "", just clear the line
      */
@@ -34,18 +33,21 @@ int args;
     /*
      * otherwise add to the message and flush it out
      */
-    doadd(fmt, &args);
+    va_start(ap, fmt);
+    doadd(fmt,ap);
+    va_end(ap);
     endmsg();
 }
 
 /*
  * add things to the current message
  */
-addmsg(fmt, args)
-char *fmt;
-int args;
+addmsg(char *fmt, ...)
 {
-    doadd(fmt, &args);
+    va_list ap;
+    va_start(ap, fmt);
+    doadd(fmt, ap);
+    va_end(ap);
 }
 
 /*
@@ -69,12 +71,12 @@ endmsg()
     draw(cw);
 }
 
-doadd(fmt, args)
-char *fmt;
-int **args;
+doadd(char *fmt, va_list ap)
 {
     static FILE junk;
 
+    vsprintf(&msgbuf[newpos], fmt, ap);
+#if 0
     /*
      * Do the printf into buf
      */
@@ -83,6 +85,7 @@ int **args;
     junk._cnt = 32767;
     _doprnt(fmt, args, &junk);
     putc('\0', &junk);
+    #endif
     newpos = strlen(msgbuf);
 }
 
@@ -121,6 +124,7 @@ readchar()
     return c;
 }
 
+#if 0
 /*
  * unctrl:
  *	Print a readable version of a certain character
@@ -134,7 +138,7 @@ char ch;
 
     return _unctrl[ch&0177];
 }
-
+#endif
 /*
  * status:
  *	Display the important stats line.  Keep the cursor where it was.

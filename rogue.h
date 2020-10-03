@@ -51,7 +51,7 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define on(thing, flag) (((thing).t_flags & flag) != 0)
 #define off(thing, flag) (((thing).t_flags & flag) == 0)
-#define CTRL(ch) ('ch' & 037)
+#define CTRL(ch) (ch & 037)
 #define ALLOC(x) malloc((unsigned int) x)
 #define FREE(x) cfree((char *) x)
 #define	EQSTR(a, b, c)	(strncmp(a, b, c) == 0)
@@ -263,7 +263,7 @@
  * Help list
  */
 
-struct h_list {
+extern struct h_list {
     char h_ch;
     char *h_desc;
 } helpstr[];
@@ -475,7 +475,7 @@ struct linked_list *find_mons(), *find_obj(), *get_item(), *new_item();
 struct linked_list *new_thing(), *wake_monster();
 
 # undef unctrl
-char *malloc(), *getenv(), *unctrl(), *tr_name(), *new(), *sprintf();
+char *malloc(), *getenv(), /* *unctrl(),*/ *tr_name(), *new();
 char *vowelstr(), *inv_name(), *strcpy(), *strcat(), *sbrk(), *brk();
 char *ctime(), *num(), *ring_num();
 
@@ -493,3 +493,4 @@ int checkout();
 long lseek();
 
 struct trap *trap_at();
+#define cfree(x) free(x)

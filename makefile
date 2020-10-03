@@ -15,7 +15,7 @@ CFILES=	vers.c armor.c chase.c command.c daemon.c daemons.c fight.c \
 	init.c io.c list.c main.c misc.c monsters.c move.c newlevel.c \
 	options.c pack.c passages.c potions.c rings.c rip.c rooms.c \
 	save.c scrolls.c sticks.c things.c weapons.c wizard.c
-CFLAGS= -O
+CFLAGS= -O -g
 PROFLAGS= -p -O
 #LDFLAGS=-i	# For PDP-11's
 LDFLAGS=	# For VAXes
@@ -43,7 +43,7 @@ INSTDIR= /usr/sheriff/jpo/games
 	$(GET) $@
 
 a.out: $(HDRS) $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(CRLIB) -ltermlib
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(CRLIB) -lcrypt # -ltermlib
 	size a.out
 
 k.out: $(HDRS) $(OBJS)

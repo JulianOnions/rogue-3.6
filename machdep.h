@@ -6,7 +6,7 @@
 /*
  * where scorefile should live
  */
-#define SCOREFILE	"/usr/sheriff/jpo/games/lib/rogueroll3.6"
+#define SCOREFILE	"lib/rogueroll3.6"
 
 /*
  * Variables for checking to make sure the system isn't too loaded
